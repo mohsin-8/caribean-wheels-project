@@ -74,7 +74,7 @@ exports.getCars = async (req, res) => {
     page = Number(page) || 1;
     limit = Number(limit) || 6;
 
-    const query = { isActive: true };
+    const query = {};
 
     // ✅ Ignore empty strings
     if (make?.trim()) query.make = { $regex: make, $options: "i" };
