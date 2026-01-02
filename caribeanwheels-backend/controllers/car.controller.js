@@ -58,7 +58,7 @@ exports.createCar = async (req, res) => {
 
 exports.getCars = async (req, res) => {
   try {
-    const {
+    let {
       make,
       model,
       type,
@@ -68,47 +68,53 @@ exports.getCars = async (req, res) => {
       year,
       sortBy,
       page = 1,
-      limit = 10,
+      limit = 6,
     } = req.query;
+
+    page = Number(page) || 1;
+    limit = Number(limit) || 6;
 
     const query = { isActive: true };
 
-    if (make) query.make = make;
-    if (model) query.model = model;
-    if (type) query.type = type;
+    if (make) query.make = { $regex: make, $options: "i" };
+    if (model) query.model = { $regex: model, $options: "i" };
+    if (type) query.type = { $regex: type, $options: "i" };
     if (condition) query.condition = condition;
-    if (year) query.year = year;
+    if (year && !isNaN(year)) query.year = Number(year);
 
-    if (minPrice || maxPrice) {
+    if ((minPrice && !isNaN(minPrice)) || (maxPrice && !isNaN(maxPrice))) {
       query.regularPrice = {};
-      if (minPrice) query.regularPrice.$gte = Number(minPrice);
-      if (maxPrice) query.regularPrice.$lte = Number(maxPrice);
+      if (minPrice && !isNaN(minPrice)) query.regularPrice.$gte = Number(minPrice);
+      if (maxPrice && !isNaN(maxPrice)) query.regularPrice.$lte = Number(maxPrice);
     }
 
+    // Sorting
     let sortOptions = { createdAt: -1 };
     if (sortBy === "price_asc") sortOptions = { regularPrice: 1 };
     if (sortBy === "price_desc") sortOptions = { regularPrice: -1 };
     if (sortBy === "year_desc") sortOptions = { year: -1 };
 
+    const total = await Car.countDocuments(query);
+
     const cars = await Car.find(query)
       .sort(sortOptions)
       .skip((page - 1) * limit)
-      .limit(Number(limit))
+      .limit(limit)
       .populate("createdBy", "name email");
-
-    const total = await Car.countDocuments(query);
 
     res.json({
       success: true,
       total,
-      page: Number(page),
+      page,
       pages: Math.ceil(total / limit),
       cars,
     });
   } catch (error) {
+    console.error("Error in getCars:", error);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 exports.getCarById = async (req, res) => {
   try {
