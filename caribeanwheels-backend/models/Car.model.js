@@ -140,6 +140,10 @@ const carSchema = new mongoose.Schema(
     vinReport: {
       url: String,
       publicId: String,
+      originalName: String,
+      format: String,
+      data: Buffer,
+      contentType: String,
     },
 
     createdBy: {

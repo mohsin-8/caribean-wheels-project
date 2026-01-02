@@ -1,11 +1,13 @@
 "use client";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import React, { useEffect } from 'react';
+import Layout from '@/components/Layout';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-export default function Dashboard() {
-    const { user, logout, loading } = useAuth();
+const Dashboard = () => {
+    const { user, loading } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
@@ -19,15 +21,14 @@ export default function Dashboard() {
     if (!user) return null;
     return (
         <ProtectedRoute>
-            <div style={{ padding: "20px" }}>
-                <h1>Dashboard</h1>
-                <p>Welcome, {user.name}</p>
-                <p>Email: {user.email}</p>
-                <p>Role: {user.role}</p>
-                <button onClick={logout} style={{ padding: "10px 20px", marginTop: "20px" }}>
-                    Logout
-                </button>
-            </div>
+            <Layout>
+                <div className='dashboard-page'>
+                    <h1>Go to Cars</h1>
+                    <Link href={"/cars"}>View Cars</Link>
+                </div>
+            </Layout>
         </ProtectedRoute>
-    );
-};
+    )
+}
+
+export default Dashboard;

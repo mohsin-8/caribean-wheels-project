@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const path = require("path");
 
 const {
   createCar,
@@ -7,6 +9,7 @@ const {
   getCarById,
   updateCar,
   deleteCar,
+  viewVinReport,
 } = require("../controllers/car.controller");
 
 const {
@@ -30,6 +33,12 @@ router.post(
   ]),
   createCarValidation,
   createCar
+);
+
+router.get(
+  "/:id/vin-report",
+  protect,
+  viewVinReport
 );
 
 router.put(

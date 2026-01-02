@@ -9,3 +9,19 @@
 body {
   font-family: "Manrope", sans-serif !important;
 }
+
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.dashboard-page a {
+  color: #fff;
+  background-color: #960f16;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+}

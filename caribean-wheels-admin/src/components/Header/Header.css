@@ -1,0 +1,36 @@
+.header {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 10px 0px;
+}
+
+.header img {
+    width: 90px;
+    height: auto;
+}
+
+.header ul {
+    margin: 0;
+    list-style-type: none;
+}
+
+.header ul li button {
+    width: 100%;
+    text-align: left;
+    padding: 5px 17px;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.header .profile-name-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background-color: #960f16;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}

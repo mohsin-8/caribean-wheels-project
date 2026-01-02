@@ -1,6 +1,8 @@
 import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "@/styles/car-admin.css";
+import BootstrapScripts from "@/components/BootstrapScripts";
 
 export const metadata = {
   title: "Caribean Wheels Admin",
@@ -13,6 +15,7 @@ export default function RootLayout({ children }) {
       <body>
         <AuthProvider>
           {children}
+          <BootstrapScripts />
         </AuthProvider>
       </body>
     </html>
