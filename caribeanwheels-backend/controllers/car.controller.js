@@ -76,19 +76,29 @@ exports.getCars = async (req, res) => {
 
     const query = { isActive: true };
 
-    if (make) query.make = { $regex: make, $options: "i" };
-    if (model) query.model = { $regex: model, $options: "i" };
-    if (type) query.type = { $regex: type, $options: "i" };
-    if (condition) query.condition = condition;
-    if (year && !isNaN(year)) query.year = Number(year);
+    // ✅ Ignore empty strings
+    if (make?.trim()) query.make = { $regex: make, $options: "i" };
+    if (model?.trim()) query.model = { $regex: model, $options: "i" };
+    if (type?.trim()) query.type = { $regex: type, $options: "i" };
+    if (condition?.trim()) query.condition = condition;
 
-    if ((minPrice && !isNaN(minPrice)) || (maxPrice && !isNaN(maxPrice))) {
-      query.regularPrice = {};
-      if (minPrice && !isNaN(minPrice)) query.regularPrice.$gte = Number(minPrice);
-      if (maxPrice && !isNaN(maxPrice)) query.regularPrice.$lte = Number(maxPrice);
+    if (year && !isNaN(year) && Number(year) > 0) {
+      query.year = Number(year);
     }
 
-    // Sorting
+    if (
+      (minPrice && !isNaN(minPrice)) ||
+      (maxPrice && !isNaN(maxPrice))
+    ) {
+      query.regularPrice = {};
+      if (minPrice && !isNaN(minPrice)) {
+        query.regularPrice.$gte = Number(minPrice);
+      }
+      if (maxPrice && !isNaN(maxPrice)) {
+        query.regularPrice.$lte = Number(maxPrice);
+      }
+    }
+
     let sortOptions = { createdAt: -1 };
     if (sortBy === "price_asc") sortOptions = { regularPrice: 1 };
     if (sortBy === "price_desc") sortOptions = { regularPrice: -1 };
@@ -99,8 +109,7 @@ exports.getCars = async (req, res) => {
     const cars = await Car.find(query)
       .sort(sortOptions)
       .skip((page - 1) * limit)
-      .limit(limit)
-      .populate("createdBy", "name email");
+      .limit(limit);
 
     res.json({
       success: true,
@@ -110,11 +119,10 @@ exports.getCars = async (req, res) => {
       cars,
     });
   } catch (error) {
-    console.error("Error in getCars:", error);
+    console.error("getCars error:", error);
     res.status(500).json({ message: error.message });
   }
 };
-
 
 exports.getCarById = async (req, res) => {
   try {
