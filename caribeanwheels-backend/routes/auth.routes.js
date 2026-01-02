@@ -1,11 +1,11 @@
 const express = require("express");
 const { body } = require("express-validator");
 const {
-    register,
-    login,
-    getProfile,
-    forgotPassword,
-    resetPassword
+  register,
+  login,
+  getProfile,
+  forgotPassword,
+  resetPassword
 } = require("../controllers/auth.controller");
 const { protect } = require("../middleware/auth.middleware");
 
@@ -13,25 +13,25 @@ const router = express.Router();
 
 // Register
 router.post(
-    "/register",
-    [
-        body("name").notEmpty().withMessage("Name is required"),
-        body("email").isEmail().withMessage("Valid email required"),
-        body("password")
-            .isLength({ min: 6 })
-            .withMessage("Password must be 6 characters")
-    ],
-    register
+  "/register",
+  [
+    body("name").notEmpty().withMessage("Name is required"),
+    body("email").isEmail().withMessage("Valid email required"),
+    body("password")
+      .isLength({ min: 6 })
+      .withMessage("Password must be 6 characters")
+  ],
+  register
 );
 
 // Login
 router.post(
-    "/login",
-    [
-        body("email").isEmail().withMessage("Valid email required"),
-        body("password").notEmpty().withMessage("Password required")
-    ],
-    login
+  "/login",
+  [
+    body("email").isEmail().withMessage("Valid email required"),
+    body("password").notEmpty().withMessage("Password required")
+  ],
+  login
 );
 
 router.post(
@@ -57,8 +57,9 @@ router.post("/logout", (req, res) => {
   res
     .clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict"
+      secure: true,
+      sameSite: "none",
+      path: "/",
     })
     .json({ message: "Logged out successfully" });
 });
