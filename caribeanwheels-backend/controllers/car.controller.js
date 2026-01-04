@@ -74,8 +74,12 @@ exports.getCars = async (req, res) => {
     page = Number(page) || 1;
     limit = Number(limit) || 6;
 
-    const query = { isActive: true };
+    const query = {};
 
+    if (req.query.onlyActive === "true") {
+      query.isActive = true;
+    }
+    
     // Filters
     if (make?.trim()) query.make = { $regex: make, $options: "i" };
     if (model?.trim()) query.model = { $regex: model, $options: "i" };
