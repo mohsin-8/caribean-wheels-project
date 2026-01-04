@@ -146,6 +146,10 @@ const carSchema = new mongoose.Schema(
       contentType: String,
     },
 
+    chassisNumber: {
+      name: String
+    },
+
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -23,7 +23,7 @@ const ALLOWED_FIELDS = [
   "regularPrice",
   "salePrice",
   "priceLabel",
-  "vinNumber",
+  "chassisNumber",
   "stockNumber",
   "mileage",
   "color",
@@ -168,7 +168,7 @@ export default function EditCarPage() {
           <div className="row g-3">
 
             {/* ===== TEXT FIELDS ===== */}
-            {ALLOWED_FIELDS.map((field) => (
+            {/* {ALLOWED_FIELDS.map((field) => (
               <div key={field} className="col-md-4">
                 <input
                   type="text"
@@ -179,7 +179,228 @@ export default function EditCarPage() {
                   placeholder={field.replace(/([A-Z])/g, " $1")}
                 />
               </div>
-            ))}
+            ))} */}
+            {/* ===== BASIC INFO ===== */}
+<div className="col-md-4">
+  <label className="form-label">Title</label>
+  <input
+    type="text"
+    name="title"
+    value={form.title}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Make</label>
+  <input
+    type="text"
+    name="make"
+    value={form.make}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Model</label>
+  <input
+    type="text"
+    name="model"
+    value={form.model}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Type</label>
+  <input
+    type="text"
+    name="type"
+    value={form.type}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Year</label>
+  <input
+    type="number"
+    name="year"
+    value={form.year}
+    onChange={handleChange}
+    className="form-control"
+    min={1900}
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Condition</label>
+  <select
+    name="condition"
+    value={form.condition}
+    onChange={handleChange}
+    className="form-select"
+  >
+    <option value="new">New</option>
+    <option value="used">Used</option>
+  </select>
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Transmission</label>
+  <select
+    name="transmission"
+    value={form.transmission}
+    onChange={handleChange}
+    className="form-select"
+  >
+    <option value="manual">Manual</option>
+    <option value="automatic">Automatic</option>
+  </select>
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Fuel Type</label>
+  <select
+    name="fuelType"
+    value={form.fuelType}
+    onChange={handleChange}
+    className="form-select"
+  >
+    <option value="petrol">Petrol</option>
+    <option value="diesel">Diesel</option>
+    <option value="hybrid">Hybrid</option>
+    <option value="electric">Electric</option>
+  </select>
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Regular Price</label>
+  <input
+    type="number"
+    name="regularPrice"
+    value={form.regularPrice}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Sale Price</label>
+  <input
+    type="number"
+    name="salePrice"
+    value={form.salePrice}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Price Label</label>
+  <select
+    name="priceLabel"
+    value={form.priceLabel}
+    onChange={handleChange}
+    className="form-select"
+  >
+    <option value="fixed">Fixed</option>
+    <option value="negotiable">Negotiable</option>
+  </select>
+</div>
+
+<div className="col-md-6">
+  <label className="form-label">Chassis Number</label>
+  <input
+    type="text"
+    name="chassisNumber"
+    value={form.chassisNumber}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-6">
+  <label className="form-label">Stock Number</label>
+  <input
+    type="text"
+    name="stockNumber"
+    value={form.stockNumber}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-6">
+  <label className="form-label">Mileage</label>
+  <input
+    type="number"
+    name="mileage"
+    value={form.mileage}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-6">
+  <label className="form-label">Color</label>
+  <input
+    type="text"
+    name="color"
+    value={form.color}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-12">
+  <label className="form-label">Description</label>
+  <textarea
+    name="description"
+    value={form.description}
+    onChange={handleChange}
+    className="form-control"
+    rows={4}
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Address</label>
+  <input
+    type="text"
+    name="address"
+    value={form.address}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Latitude</label>
+  <input
+    type="number"
+    name="latitude"
+    value={form.latitude}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
+<div className="col-md-4">
+  <label className="form-label">Longitude</label>
+  <input
+    type="number"
+    name="longitude"
+    value={form.longitude}
+    onChange={handleChange}
+    className="form-control"
+  />
+</div>
+
 
             {/* ===== EXISTING IMAGES ===== */}
             <div className="col-12">

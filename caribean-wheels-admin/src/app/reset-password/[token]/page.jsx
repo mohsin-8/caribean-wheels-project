@@ -30,7 +30,7 @@ const ResetPassword = () => {
         }
 
         try {
-            const res = await fetch(`http://localhost:5000/api/auth/reset-password/${token}`, {
+            const res = await fetch(`https://caribeanwheelsadmin.vercel.app/api/auth/reset-password/${token}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ password }),

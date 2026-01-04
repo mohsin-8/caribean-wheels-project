@@ -29,7 +29,7 @@ export default function AddCarPage() {
         salePrice: "",
         priceLabel: "fixed",
         stockNumber: "",
-        vinNumber: "",
+        // vinNumber: "",
         comfortFeatures: [],
         entertainmentFeatures: [],
         safetyFeatures: [],
@@ -39,6 +39,7 @@ export default function AddCarPage() {
         address: "",
         latitude: "",
         longitude: "",
+        chassisNumber: ""
     });
 
     const [images, setImages] = useState([]);
@@ -250,7 +251,7 @@ export default function AddCarPage() {
                                 name="regularPrice"
                                 value={form.regularPrice}
                                 onChange={handleChange}
-                                placeholder="Regular Price"
+                                placeholder="Regular Price ($FOB)"
                                 className="form-control"
                                 required
                             />
@@ -282,10 +283,10 @@ export default function AddCarPage() {
                         <div className="col-md-6">
                             <input
                                 type="text"
-                                name="vinNumber"
-                                value={form.vinNumber}
+                                name="chassisNumber"
+                                value={form.chassisNumber}
                                 onChange={handleChange}
-                                placeholder="VIN Number"
+                                placeholder="Chassis Number"
                                 className="form-control"
                             />
                         </div>
