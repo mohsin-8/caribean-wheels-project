@@ -79,7 +79,7 @@ exports.getCars = async (req, res) => {
     if (req.query.onlyActive === "true") {
       query.isActive = true;
     }
-    
+
     // Filters
     if (make?.trim()) query.make = { $regex: make, $options: "i" };
     if (model?.trim()) query.model = { $regex: model, $options: "i" };
@@ -187,20 +187,13 @@ exports.updateCar = async (req, res) => {
 
 exports.deleteCar = async (req, res) => {
   try {
-    const car = await Car.findByIdAndUpdate(
-      req.params.id,
-      { isActive: false },
-      { new: true }
-    );
+    const car = await Car.findByIdAndDelete(req.params.id);
 
     if (!car) {
       return res.status(404).json({ message: "Car not found" });
     }
 
-    res.json({
-      success: true,
-      message: "Car removed successfully",
-    });
+    res.json({ success: true, message: "Car deleted permanently" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
