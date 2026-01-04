@@ -74,15 +74,15 @@ exports.getCars = async (req, res) => {
     page = Number(page) || 1;
     limit = Number(limit) || 6;
 
-    const query = {};
+    const query = { isActive: true };
 
-    // ✅ Ignore empty strings
+    // Filters
     if (make?.trim()) query.make = { $regex: make, $options: "i" };
     if (model?.trim()) query.model = { $regex: model, $options: "i" };
     if (type?.trim()) query.type = { $regex: type, $options: "i" };
     if (condition?.trim()) query.condition = condition;
 
-    if (year && !isNaN(year) && Number(year) > 0) {
+    if (year && !isNaN(year)) {
       query.year = Number(year);
     }
 
@@ -126,8 +126,10 @@ exports.getCars = async (req, res) => {
 
 exports.getCarById = async (req, res) => {
   try {
-    const car = await Car.findById(req.params.id)
-      .populate("createdBy", "name email");
+    const car = await Car.findOne({
+      _id: req.params.id,
+      isActive: true,
+    }).populate("createdBy", "name email");
 
     if (!car)
       return res.status(404).json({ message: "Car not found" });
@@ -181,10 +183,15 @@ exports.updateCar = async (req, res) => {
 
 exports.deleteCar = async (req, res) => {
   try {
-    const car = await Car.findByIdAndUpdate(req.params.id);
+    const car = await Car.findByIdAndUpdate(
+      req.params.id,
+      { isActive: false },
+      { new: true }
+    );
 
-    if (!car)
+    if (!car) {
       return res.status(404).json({ message: "Car not found" });
+    }
 
     res.json({
       success: true,

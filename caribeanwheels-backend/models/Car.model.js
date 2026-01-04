@@ -149,6 +149,12 @@ const carSchema = new mongoose.Schema(
     chassisNumber: {
       name: String
     },
+    
+    isActive: {
+      type: Boolean,
+      default: true,
+      index: true,
+    },
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
