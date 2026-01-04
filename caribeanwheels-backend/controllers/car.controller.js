@@ -181,11 +181,7 @@ exports.updateCar = async (req, res) => {
 
 exports.deleteCar = async (req, res) => {
   try {
-    const car = await Car.findByIdAndUpdate(
-      req.params.id,
-      { isActive: false },
-      { new: true }
-    );
+    const car = await Car.findByIdAndUpdate(req.params.id);
 
     if (!car)
       return res.status(404).json({ message: "Car not found" });
