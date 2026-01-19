@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-const path = require("path");
 
 const {
   createCar,
@@ -28,8 +26,8 @@ router.post(
   protect,
   authorize("admin"),
   upload.fields([
-    { name: "images" },
-    { name: "vinReport" },
+    { name: "images", maxCount: 10 },
+    { name: "vinReport", maxCount: 2 },
   ]),
   createCarValidation,
   createCar
@@ -46,8 +44,8 @@ router.put(
   protect,
   authorize("admin"),
   upload.fields([
-    { name: "images" },
-    { name: "vinReport" },
+    { name: "images", maxCount: 10 },
+    { name: "vinReport", maxCount: 2 },
   ]),
   updateCarValidation,
   updateCar
