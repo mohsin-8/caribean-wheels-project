@@ -28,8 +28,8 @@ router.post(
   protect,
   authorize("admin"),
   upload.fields([
-    { name: "images", maxCount: 10 },
-    { name: "vinReport", maxCount: 1 },
+    { name: "images" },
+    { name: "vinReport" },
   ]),
   createCarValidation,
   createCar
@@ -46,8 +46,8 @@ router.put(
   protect,
   authorize("admin"),
   upload.fields([
-    { name: "images", maxCount: 10 },
-    { name: "vinReport", maxCount: 1 },
+    { name: "images" },
+    { name: "vinReport" },
   ]),
   updateCarValidation,
   updateCar
