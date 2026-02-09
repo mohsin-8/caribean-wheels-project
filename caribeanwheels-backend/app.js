@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 app.use(cors({
-    origin: ["https://caribeanwheelsadmin.vercel.app", "http://localhost:3000", "https://caribbean-wheels-client-gilt.vercel.app", "https://caribbeanwheel.com"],
+    origin: ["https://caribeanwheelsadmin.vercel.app", "http://localhost:3000", "https://caribbean-wheels-client-gilt.vercel.app", "https://www.caribbeanwheel.com"],
     credentials: true
 }));
 
